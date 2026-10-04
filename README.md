@@ -21,7 +21,7 @@
 ---
 
 <p align="center">
-  <img src="screenshots/jobStarr-screenshot-01_smaller.png" alt="jobStarr Desktop Interface" width="820"/>
+  <img src="screenshots/jobStarr-screenshot-01_smaller.png" alt="jobStarr Desktop Interface" width="800"/>
 </p>
 
 ---
