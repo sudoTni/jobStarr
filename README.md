@@ -14,7 +14,11 @@
   <img src="icon/jobStarr_logo.png" alt="jobStarr Logo" width="550"/>
 </p>
 
+---
+
 **jobStarr** (`jS`) is a high-precision Linux desktop application engineered in **C++20** and **Qt 6 Widgets**. Built for deliberate, quality-first career management, it automates the analysis of individual **LinkedIn** and **Indeed** job postings, evaluates candidate-to-job alignment using advanced LLM reasoning without fabrication, and generates polished, customized application packages (tailored resumes and cover letters in both `.odt` and `.pdf` formats).
+
+---
 
 <p align="center">
   <img src="screenshots/jobStarr-screenshot-01_smaller.png" alt="jobStarr Desktop Interface" width="820"/>
