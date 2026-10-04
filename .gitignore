@@ -1,0 +1,54 @@
+# ---------------------------------------------------------------------------
+# build/ is TRACKED, with exceptions.
+#
+# The compiled artifacts are committed so a release can be audited without
+# rebuilding: the jobStarr executable, libjobstarr_core.a, the 13 test binaries,
+# and the deployed jobspy_bridge.py + jobspy/ package. They were produced by a
+# neutral-path build, so no username or private directory layout is embedded.
+#
+# CMake's generated scaffolding is NOT tracked. CMakeCache.txt records the
+# absolute source and binary directories of the machine that generated it, so
+# committing it makes `cmake -S . -B build` hard-error for anyone who clones:
+#   "The current CMakeCache.txt directory ... is different than the directory
+#    ... where CMakeCache.txt was created."
+# The generated makefiles and CTestTestfile.cmake embed the same absolute paths,
+# so `ctest --test-dir build` cannot run from a fresh checkout either.
+#
+# To rebuild (always do this after cloning):
+#   cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j$(nproc)
+#   ctest --test-dir build --output-on-failure
+build/CMakeCache.txt
+build/Makefile
+build/cmake_install.cmake
+build/CTestTestfile.cmake
+build/CMakeFiles/
+build/DartConfiguration.tcl
+build/*_autogen/
+build/.qt/
+build/Testing/
+
+# Runtime configuration — NEVER COMMIT. ConfigManager::save() writes this next to
+# the executable (mode 0600) with plaintext LLM API keys. The pattern is
+# unanchored so it covers both ./jobStarr.yaml and build/jobStarr.yaml.
+jobStarr.yaml
+*.yaml.tmp
+
+# Published application packages (generated resumes / cover letters, ODT + PDF).
+output/*
+!output/.gitkeep
+
+# Python bytecode. The vendored JobSpy package in third_party/ is upstream source
+# and must stay byte-identical to upstream — never commit generated .pyc files.
+# Also keeps build/jobspy/ (the deployed copy) free of interpreter-specific noise.
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Qt / CMake / editor noise
+*.user
+*.autosave
+.cache/
+compile_commands.json
+CMakeUserPresets.json

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="icon/jobStarr_icon.png">../icon/jobStarr_icon.png</file>
+        <file alias="sysprompts/veritas_sys_prompt.md">../sysprompts/veritas_sys_prompt.md</file>
+        <file alias="prompts/jj_prompt.md">../prompts/jj_prompt.md</file>
+        <file alias="prompts/mm_prompt.md">../prompts/mm_prompt.md</file>
+        <file alias="candidate_data/my_resume.md">../candidate_data/my_resume.md</file>
+        <file alias="candidate_data/my_professional_title.md">../candidate_data/my_professional_title.md</file>
+        <file alias="candidate_data/my_professional_summary.md">../candidate_data/my_professional_summary.md</file>
+        <file alias="candidate_data/my_key_skills.md">../candidate_data/my_key_skills.md</file>
+        <file alias="candidate_data/my_testimonials.md">../candidate_data/my_testimonials.md</file>
+    </qresource>
+</RCC>

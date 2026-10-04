@@ -1,0 +1,17 @@
+# Runtime dependencies for the vendored JobSpy package (third_party/jobspy).
+#
+# The jobspy source itself is bundled with jobStarr (see third_party/README.md);
+# these are its third-party runtime requirements and must be installed separately,
+# e.g. into a virtual environment:
+#
+#   python3 -m venv .venv && . .venv/bin/activate
+#   pip install -r tools/requirements-jobspy.txt
+#
+# Version floors mirror upstream jobspy 1.2.0 (pyproject.toml).
+
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+pandas>=2.1.2
+pydantic>=2.3.0
+curl_cffi>=0.16.2
+markdownify>=1.1.0
