@@ -3,8 +3,8 @@
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.cppreference.com/w/cpp/20)
 [![Qt 6](https://img.shields.io/badge/Qt-6.x%20Widgets-green.svg)](https://www.qt.io/)
 [![CMake](https://img.shields.io/badge/CMake-3.20%2B-informational.svg)](https://cmake.org/)
-[![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-v0.2.1.zip)
-[![Platform Windows](https://img.shields.io/badge/platform-Windows-0078D4)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-v0.2.1.zip)
+[![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-bin-v0.2.1.zip)
+[![Platform Windows](https://img.shields.io/badge/platform-Windows-0078D4)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-bin-v0.2.1.zip)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)<br>
 [![Google Antigravity](https://img.shields.io/badge/Google-Antigravity-4285F4)](https://antigravity.google/)
 [![OpenAI Codex](https://img.shields.io/badge/OpenAI-Codex-000000?labelColor=555555)](https://openai.com/codex/)
@@ -367,11 +367,31 @@ sudo dnf install -y gcc-c++ cmake qt6-qtbase-devel yaml-cpp-devel libzip-devel \
     libxml2-devel libreoffice poppler-utils
 ```
 
+#### Windows 10 / 11 (64-bit):
+- **Visual Studio 2022** (Build Tools or Community with *Desktop development with C++*)
+- **Qt 6.8+ MSVC 2022 64-bit** (via official Qt installer)
+- **vcpkg** for native C++ libraries:
+  ```powershell
+  vcpkg install yaml-cpp:x64-windows libzip:x64-windows libxml2:x64-windows
+  ```
+- **LibreOffice 24+** (for headless PDF generation)
+
 ### Compilation
+
+#### Linux:
 Build the application in Release mode:
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
+```
+
+#### Windows:
+Build using the Visual Studio generator with vcpkg integration:
+```powershell
+cmake -S . -B build-win -G "Visual Studio 17 2022" -A x64 `
+      -DCMAKE_PREFIX_PATH="C:/Qt/6.8.0/msvc2022_64" `
+      -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+cmake --build build-win --config Release --parallel
 ```
 
 ### Running the Test Suite
@@ -415,8 +435,20 @@ Consequences:
   ```
 
 ### Launching jobStarr
+
+#### Linux:
 ```bash
 ./build/jobStarr
+```
+
+#### Windows:
+Run from the standalone staged deployment directory:
+```powershell
+.\bin\jobStarr.exe
+```
+Or directly from the build tree:
+```powershell
+.\build-win\Release\jobStarr.exe
 ```
 
 ---
