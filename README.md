@@ -12,7 +12,10 @@
 [![OpenRouter](https://img.shields.io/badge/OpenRouter-141210?style=flat-square&logo=openrouter&logoColor=white)](https://openrouter.ai)
 
 <p align="center">
-  <img src="icon/jobStarr_logo.png" alt="jobStarr Logo" width="550"/>
+  <img src="icon/jobStarr_logo.png" alt="jobStarr Logo" width="550"/><br>
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Linux-v0.2.0.zip">Linux</a>
+  |
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Windows-v0.2.0.zip">Windows</a>
 </p>
 
 ---
@@ -154,6 +157,7 @@ Operates completely independently from `Judge`—usable directly on any grabbed 
 
 ## 3. Dual LLM Architecture
 
+### Separation of Concerns & Privacy
 `jobStarr` enforces a strict architectural boundary between candidate-facing generation and web-facing address retrieval:
 
 | Characteristic | Primary LLM | Search LLM |
