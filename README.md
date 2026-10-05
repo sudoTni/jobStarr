@@ -4,6 +4,7 @@
 [![Qt 6](https://img.shields.io/badge/Qt-6.x%20Widgets-green.svg)](https://www.qt.io/)
 [![CMake](https://img.shields.io/badge/CMake-3.20%2B-informational.svg)](https://cmake.org/)
 [![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://www.kernel.org/)
+[![Platform Windows](https://img.shields.io/badge/platform-Windows-0078D4)](#supported_platforms)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)<br>
 [![Google Antigravity](https://img.shields.io/badge/Google-Antigravity-4285F4)](https://antigravity.google/)
 [![OpenAI Codex](https://img.shields.io/badge/OpenAI-Codex-000000?labelColor=555555)](https://openai.com/codex/)
