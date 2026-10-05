@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(jobStarr VERSION 0.2.0 LANGUAGES CXX)
+project(jobStarr VERSION 0.2.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,6 +13,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network Test)
 find_package(yaml-cpp REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBZIP REQUIRED IMPORTED_TARGET libzip)
+find_package(LibXml2 REQUIRED)
 
 # Core library
 add_library(jobstarr_core STATIC
@@ -26,8 +27,16 @@ add_library(jobstarr_core STATIC
     src/PromptRenderer.cpp
     src/ConfigManager.h
     src/ConfigManager.cpp
-    src/JobSpyClient.h
-    src/JobSpyClient.cpp
+    src/scraping/ScrapeError.h
+    src/scraping/JobScraper.h
+    src/scraping/JobParsingUtilities.h
+    src/scraping/JobParsingUtilities.cpp
+    src/scraping/LinkedInScraper.h
+    src/scraping/LinkedInScraper.cpp
+    src/scraping/IndeedScraper.h
+    src/scraping/IndeedScraper.cpp
+    src/scraping/ScraperFactory.h
+    src/scraping/ScraperFactory.cpp
     src/LlmClient.h
     src/LlmClient.cpp
     src/ProjectPaths.h
@@ -59,6 +68,7 @@ target_link_libraries(jobstarr_core PUBLIC
     Qt6::Network
     yaml-cpp::yaml-cpp
     PkgConfig::LIBZIP
+    LibXml2::LibXml2
 )
 
 target_compile_definitions(jobstarr_core PUBLIC
@@ -80,18 +90,6 @@ target_link_libraries(jobStarr PRIVATE
     Qt6::Gui
 )
 
-# Copy python bridge + the bundled JobSpy package next to the compiled executable,
-# so the installed/built app is self-contained and needs no sibling repository.
-add_custom_command(TARGET jobStarr POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/tools/jobspy_bridge.py
-        $<TARGET_FILE_DIR:jobStarr>/jobspy_bridge.py
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/jobspy
-        $<TARGET_FILE_DIR:jobStarr>/jobspy
-    COMMENT "Copying jobspy_bridge.py and bundled jobspy/ next to jobStarr executable"
-)
-
 # Automated Unit Tests
 enable_testing()
 
@@ -110,6 +108,9 @@ add_jobstarr_test(test_job_judge_parser test_job_judge_parser.cpp)
 add_jobstarr_test(test_config test_config.cpp)
 add_jobstarr_test(test_scraper_boundary test_scraper_boundary.cpp)
 add_jobstarr_test(test_llm_boundary test_llm_boundary.cpp)
+add_jobstarr_test(test_job_parsing_utilities test_job_parsing_utilities.cpp)
+add_jobstarr_test(test_linkedin_parser test_linkedin_parser.cpp)
+add_jobstarr_test(test_indeed_parser test_indeed_parser.cpp)
 
 # Version 0.2.0 Unit Tests
 add_jobstarr_test(test_make_materials_parser test_make_materials_parser.cpp)

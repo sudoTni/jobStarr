@@ -45,6 +45,7 @@ private:
     QLineEdit *m_searchApiKeyEdit{nullptr};
     QPushButton *m_toggleSearchApiKeyButton{nullptr};
     QLineEdit *m_searchReasoningEffortEdit{nullptr};
+    QSpinBox *m_searchTimeoutSpinBox{nullptr};
 
     // Prompts
     QPlainTextEdit *m_systemPromptEdit{nullptr};
@@ -67,7 +68,7 @@ private:
     QPushButton *m_saveButton{nullptr};
     QLabel *m_statusLabel{nullptr};
 
-    QString m_version{"0.2.0"};
+    QString m_version{"0.2.1"};
     ConfigManager m_configManager;
 };
 

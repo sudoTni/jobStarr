@@ -1,0 +1,84 @@
+{
+  "data": {
+    "jobData": {
+      "results": [
+        {
+          "job": {
+            "source": {
+              "name": "Indeed"
+            },
+            "key": "71249db25547cb07",
+            "title": "Principal Cyber Systems Architect",
+            "datePublished": 1759500000000,
+            "dateOnIndeed": 1759500000000,
+            "description": {
+              "html": "<h3>About the Role</h3><p>We are looking for a <strong>Principal Cyber Systems Architect</strong> to oversee secure Linux software deployments.</p><ul><li>Architecture design</li><li>C++20 development</li><li>Threat hunting</li></ul><p>Contact hiring@cyberdefense.example.com for inquiries.</p>"
+            },
+            "location": {
+              "countryName": "United States",
+              "countryCode": "US",
+              "admin1Code": "MA",
+              "city": "Boston",
+              "postalCode": "02110",
+              "streetAddress": "100 High Street",
+              "formatted": {
+                "short": "Boston, MA",
+                "long": "Boston, MA (Remote eligible)"
+              }
+            },
+            "compensation": {
+              "baseSalary": {
+                "unitOfWork": "YEAR",
+                "range": {
+                  "min": 175000.0,
+                  "max": 220000.0
+                }
+              },
+              "currencyCode": "USD",
+              "estimated": null
+            },
+            "attributes": [
+              {
+                "key": "CF3CP",
+                "label": "Full-time"
+              },
+              {
+                "key": "DSQF7",
+                "label": "Remote"
+              }
+            ],
+            "employer": {
+              "relativeCompanyPageUrl": "/cmp/cyber-defense-corp",
+              "name": "Cyber Defense Corp",
+              "dossier": {
+                "employerDetails": {
+                  "addresses": [
+                    "100 High Street, Boston, MA 02110"
+                  ],
+                  "industry": "Information_TechnologyIv1",
+                  "employeesLocalizedLabel": "1,000 - 5,000 employees",
+                  "revenueLocalizedLabel": "$500M - $1B (USD)",
+                  "briefDescription": "Leader in enterprise cyber resilience and systems security.",
+                  "ceoName": "Jane Doe",
+                  "ceoPhotoUrl": "https://example.com/ceo.jpg"
+                },
+                "images": {
+                  "headerImageUrl": "https://example.com/header.jpg",
+                  "squareLogoUrl": "https://example.com/logo.png"
+                },
+                "links": {
+                  "corporateWebsite": "https://cyberdefense.example.com"
+                }
+              }
+            },
+            "recruit": {
+              "viewJobUrl": "https://cyberdefense.example.com/careers/job/123",
+              "detailedSalary": "$175K - $220K a year",
+              "workSchedule": "Monday to Friday"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

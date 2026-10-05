@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("jobStarr"));
     app.setApplicationDisplayName(QStringLiteral("jobStarr"));
-    app.setWindowIcon(QIcon(QStringLiteral(":/icon/jobStarr_icon.png")));
+    app.setWindowIcon(QIcon(QStringLiteral(":/icon/jobStarr.png")));
 
     jobstarr::MainWindow mainWindow;
     mainWindow.show();

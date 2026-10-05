@@ -99,6 +99,13 @@ void ConfigurationWidget::setupUi() {
     m_searchReasoningEffortEdit->setPlaceholderText(tr("e.g. low, medium, high (optional)"));
     searchFormLayout->addRow(tr("Reasoning Effort:"), m_searchReasoningEffortEdit);
 
+    m_searchTimeoutSpinBox = new QSpinBox(searchGroup);
+    m_searchTimeoutSpinBox->setRange(10, 1800);
+    m_searchTimeoutSpinBox->setValue(300);
+    m_searchTimeoutSpinBox->setSingleStep(15);
+    m_searchTimeoutSpinBox->setSuffix(tr(" seconds"));
+    searchFormLayout->addRow(tr("Timeout:"), m_searchTimeoutSpinBox);
+
     contentLayout->addWidget(searchGroup);
 
     // 3. Prompts Group
@@ -258,6 +265,7 @@ void ConfigurationWidget::setConfig(const AppConfig &config) {
     m_searchModelEdit->setText(config.searchModel);
     m_searchApiKeyEdit->setText(config.searchApiKey);
     m_searchReasoningEffortEdit->setText(config.searchReasoningEffort);
+    m_searchTimeoutSpinBox->setValue(config.searchTimeoutSeconds > 0 ? config.searchTimeoutSeconds : 300);
 
     m_systemPromptEdit->setPlainText(config.systemPrompt);
     m_jobJudgePromptEdit->setPlainText(config.jobJudgePrompt);
@@ -288,7 +296,7 @@ AppConfig ConfigurationWidget::config() const {
     c.searchModel = m_searchModelEdit->text().trimmed();
     c.searchApiKey = m_searchApiKeyEdit->text().trimmed();
     c.searchReasoningEffort = m_searchReasoningEffortEdit->text().trimmed();
-    c.searchTimeoutSeconds = c.timeoutSeconds;
+    c.searchTimeoutSeconds = m_searchTimeoutSpinBox->value();
 
     c.systemPrompt = m_systemPromptEdit->toPlainText();
     c.jobJudgePrompt = m_jobJudgePromptEdit->toPlainText();

@@ -74,7 +74,7 @@ bool ConfigManager::load(AppConfig &config, QString *errorMessage) {
 
     if (!fileInfo.exists()) {
         // File does not exist: initialize using defaults
-        config.version = QStringLiteral("0.2.0");
+        config.version = QStringLiteral("0.2.1");
         config.apiEndpoint = QStringLiteral("https://api.openai.com/v1/chat/completions");
         config.model = QStringLiteral("gpt-4o");
         config.apiKey = QString();
@@ -245,8 +245,8 @@ bool ConfigManager::save(const AppConfig &config, QString *errorMessage) {
         YAML::Emitter emitter;
         emitter << YAML::BeginMap;
 
-        // Upgrade/save as version 0.2.0 unless explicitly specified otherwise
-        const QString ver = config.version.isEmpty() ? QStringLiteral("0.2.0") : config.version;
+        // Upgrade/save as version 0.2.1 unless explicitly specified otherwise
+        const QString ver = config.version.isEmpty() ? QStringLiteral("0.2.1") : config.version;
         emitter << YAML::Key << "version" << YAML::Value << ver.toStdString();
 
         emitter << YAML::Key << "api" << YAML::Value << YAML::BeginMap;

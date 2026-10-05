@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="icon/jobStarr_icon.png">../icon/jobStarr_icon.png</file>
+        <file alias="icon/jobStarr.png">../icon/jobStarr.png</file>
         <file alias="sysprompts/veritas_sys_prompt.md">../sysprompts/veritas_sys_prompt.md</file>
         <file alias="prompts/jj_prompt.md">../prompts/jj_prompt.md</file>
         <file alias="prompts/mm_prompt.md">../prompts/mm_prompt.md</file>

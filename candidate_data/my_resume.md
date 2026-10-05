@@ -1,8 +1,8 @@
 Candidate
 Security / SecOps Engineer • Healthcare Cybersecurity • Enterprise IT & Remote Support
-Albany, NY • 518-555-0100 • candidate@example.com
-linkedin.com/in/candidate • github.com/jobStarr
-FDIC Public Trust Suitability — Obtained December 2024
+Anytown, USA • 555-0199 • candidate@example.com
+linkedin.com/in/candidate • github.com/candidate
+Federal Public Trust Suitability — Active
 
 Professional Summary
 
@@ -19,33 +19,33 @@ Core Skills
 
 Professional Experience
 
-Security Engineer • Contract • Northgate Systems Inc. • Remote / Herndon, VA • Jan 2025 – Feb 2025
-* Onboarded for an FDIC-aligned federal security engagement after obtaining Public Trust suitability; the position was eliminated before assignment work began because of program budget changes.
+Security Engineer • Contract • Federal Cyber Solutions LLC • Remote / Washington, DC • Jan 2024 – Feb 2024
+* Onboarded for a federal contractor security engagement after obtaining Public Trust suitability; position concluded before assignment work began due to program budget adjustments.
 
-Security Analyst • Crestline Health • Remote / Mechanicsburg, PA • Jul 2021 – Oct 2023
-* Co-led migration of 40,000+ HIPAA-regulated endpoints from Trend Micro antivirus to Carbon Black EDR/XDR, supporting deployment, tuning, adoption, and enterprise security modernization.
+Security Analyst • HealthEnterprise Systems • Remote • Jul 2021 – Oct 2023
+* Co-led migration of 40,000+ HIPAA-regulated endpoints from legacy antivirus to Carbon Black EDR/XDR, supporting deployment, tuning, adoption, and enterprise security modernization.
 * Used Splunk, Carbon Black, Python, and PowerShell to investigate security events, analyze endpoint behavior, support threat hunting, and assist incident remediation.
 * Converted high-volume technical signals into actionable findings supporting incident response, vulnerability remediation, compliance efforts, and operational risk reduction.
 * Supported SLA-driven remediation of critical vulnerabilities through structured tracking, prioritization, documentation, and cross-functional coordination.
 
-System Support Specialist • Crestline Health – Westbrook • West Orange, NJ • Apr 2020 – Jul 2021
+Systems Support Specialist • Regional Medical Center • Metro Area, NJ • Apr 2020 – Jul 2021
 * Deployed HIPAA-compliant telehealth infrastructure for 200+ clinicians during COVID-19, maintaining 99% uptime and uninterrupted patient-care delivery.
 * Reduced technical response times by 35% through asset-management improvements and ticketing workflow automation.
-* Supported Epic EMR, PACS, secure remote access, endpoint systems, and clinical workflows, earning 95% staff satisfaction and 17 recognition awards.
+* Supported Epic EMR, PACS, secure remote access, endpoint systems, and clinical workflows, earning 95% staff satisfaction and multiple service recognition awards.
 * Resolved endpoint failures, connectivity issues, device migrations, printing and application problems, and remote-support requests, minimizing disruption to patient care.
 
-Senior IT Analyst • Lumina Technologies / Vertex Lighting • Bethlehem, PA • Apr 2012 – Apr 2020
+Senior IT Analyst • Global Manufacturing Corp • Metro Area, PA • Apr 2012 – Apr 2020
 * Strengthened endpoint resilience through automated patch deployment, SCCM administration, proactive monitoring, vulnerability reduction, and infrastructure troubleshooting.
 * Supported Windows Server, Active Directory, VMware, endpoint systems, identity operations, technical documentation, and continuity-focused enterprise support.
-* Administered enterprise physical-security infrastructure, including Tyco C-Cure 9000 and Siemens SiPass, supporting access-control operations for 200+ employees.
+* Administered enterprise physical-access infrastructure, including Tyco C-Cure 9000 and Siemens SiPass, supporting access-control operations for 200+ employees.
 
-Tech Expert — Consumer Electronics • Vertex Electronics • Wayne, NJ • Oct 2010 – Apr 2012
+Technical Support Specialist • Retail Technology Systems • Metro Area, NJ • Oct 2010 – Apr 2012
 * Resolved 25+ complex technical issues daily while educating customers on security, privacy, encryption, device protection, and account-safety best practices.
-* Recognized as Store Hero and Family Room MVP for advanced troubleshooting, clear communication, and high-quality customer support.
+* Recognized for advanced troubleshooting, clear communication, and high-quality customer support.
 
 Certifications & Education
 
-* Certified Desktop Technician • Aug 2011
+* Apple Certified Mac Technician (ACMT) • Aug 2011
 * CompTIA A+ • Aug 2010
 * Bachelor of Arts in Psychology • Dec 2009
-   * Riverside State University • Wayne, NJ, • Pi Lambda Theta Honor Society
+   * State University (Metro Campus) • Academic Honors

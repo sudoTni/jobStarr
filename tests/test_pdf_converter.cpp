@@ -2,7 +2,6 @@
 #include <QTemporaryDir>
 #include <QFile>
 #include "PdfConverter.h"
-#include "ProjectPaths.h"
 
 using namespace jobstarr;
 
@@ -174,11 +173,8 @@ void TestPdfConverter::testRealLibreOfficeIntegration() {
     }
 
     QTemporaryDir tempDir;
-    // Copy real template. Resolved through ProjectPaths rather than the
-    // JOBSTARR_SOURCE_DIR compile definition so the test is relocatable — it
-    // keeps working from a build tree produced on a different machine.
-    QString realTemplate = ProjectPaths::defaultCoverLetterTemplatePath();
-    QVERIFY2(QFile::exists(realTemplate), qPrintable(realTemplate));
+    // Copy real template
+    QString realTemplate = QStringLiteral(JOBSTARR_SOURCE_DIR "/templates/Candidate_Cover000-TEMPLATE.odt");
     QString testOdt = tempDir.filePath(QStringLiteral("IntegrationTest.odt"));
     QVERIFY(QFile::copy(realTemplate, testOdt));
 

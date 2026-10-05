@@ -25,7 +25,8 @@ SOFTWARE.
 ### Third-Party Attribution & Acknowledgements
 
 #### JobSpy
-Indeed and LinkedIn job scraping capabilities are powered by the JobSpy project:
+Native C++ Indeed and LinkedIn job scraping capabilities are derived from and inspired by the JobSpy project:
 - Repository: https://github.com/speedyapply/JobSpy/
-- Author: Cullen Watson and speedyapply contributors
+- Author: Zachary Hampton, Cullen Watson, and the speedyapply community
 - License: MIT License (Copyright (c) 2023 Cullen Watson)
+- Full license text: third_party_licenses/LICENSE.JobSpy

@@ -1,10 +1,10 @@
-# jobStarr (`jS`) — Version 0.2.0
+# jobStarr (`jS`) — Version 0.2.1
 
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.cppreference.com/w/cpp/20)
 [![Qt 6](https://img.shields.io/badge/Qt-6.x%20Widgets-green.svg)](https://www.qt.io/)
 [![CMake](https://img.shields.io/badge/CMake-3.20%2B-informational.svg)](https://cmake.org/)
-[![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Linux-v0.2.0.zip)
-[![Platform Windows](https://img.shields.io/badge/platform-Windows-0078D4)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Windows-v0.2.0.zip)
+[![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-v0.2.1.zip)
+[![Platform Windows](https://img.shields.io/badge/platform-Windows-0078D4)](https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-v0.2.1.zip)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)<br>
 [![Google Antigravity](https://img.shields.io/badge/Google-Antigravity-4285F4)](https://antigravity.google/)
 [![OpenAI Codex](https://img.shields.io/badge/OpenAI-Codex-000000?labelColor=555555)](https://openai.com/codex/)
@@ -13,9 +13,9 @@
 
 <p align="center">
   <img src="icon/jobStarr_logo.png" alt="jobStarr Logo" width="550"/><br>
-  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Linux-v0.2.0.zip">Linux</a>
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-v0.2.1.zip">Linux</a>
   |
-  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.0/jobStarr-Windows-v0.2.0.zip">Windows</a>
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-v0.2.1.zip">Windows</a>
 </p>
 
 ---
@@ -60,7 +60,6 @@
 - [7. Repository Structure](#7-repository-structure)
 - [8. Building & Installation](#8-building--installation)
   - [System Prerequisites](#system-prerequisites)
-  - [Python Environment](#python-environment)
   - [Compilation](#compilation)
   - [Running the Test Suite](#running-the-test-suite)
   - [Launching jobStarr](#launching-jobstarr)
@@ -96,7 +95,7 @@ Modern job hunting is plagued by automated "spray-and-pray" tools that blast gen
                                   |
                                   v
                   +-------------------------------+
-                  |  Grab Job (JobSpy Subprocess) |
+                  |  Grab Job (Native C++ Scraper)|
                   +-------------------------------+
                                   |
                                   v
@@ -126,7 +125,7 @@ Modern job hunting is plagued by automated "spray-and-pray" tools that blast gen
 
 ### Workflow A: Job Grab & Inspection
 1. **URL Sanitization**: Host-anchored regex validation verifies that the input URL originates strictly from valid `linkedin.com` or `indeed.com` domains, protecting against open redirects and arbitrary input injection.
-2. **Subprocess Scraper**: Spawns a localized Python adapter (`tools/jobspy_bridge.py`) asynchronously via `QProcess` without blocking the Qt GUI event loop.
+2. **Native C++ Scraper**: Asynchronously fetches and parses the posting natively using Qt Network (`QNetworkAccessManager`), `libxml2` XPath navigation for LinkedIn, and direct GraphQL querying for Indeed—eliminating external subprocesses, Python runtimes, and intermediate scripts.
 3. **Structured Normalization**: Extracts metadata (title, company, description, compensation, location) and supports both plain strings and structured location dictionaries (`city`, `state`, `country`). Outputs clean, deterministic JSON directly into the editor for review.
 
 ### Workflow B: Deterministic Evaluation (`Judge`)
@@ -167,7 +166,7 @@ Operates completely independently from `Judge`—usable directly on any grabbed 
 | **Candidate Data Sent** | **Yes** (Master resume, professional summary, normalized skills, testimonials) | **None** (Strictly company name, job title, location, and URLs) |
 | **Recommended Models** | High-reasoning models (e.g., `openai/gpt-4o`, `anthropic/claude-3.5-sonnet`, `openai/o3-mini`, `openai/gpt-5.4`) | Web-connected search models (e.g., `perplexity/sonar`, `google/gemini-2.0-flash`, `google/gemini-3.1-flash-lite`) |
 | **Reasoning Effort** | Configurable (`low`, `medium`, `high`, or omitted) | Configurable (`low`, `medium`, `high`, or omitted) |
-| **Default Timeout** | 300 seconds | 120 seconds |
+| **Default Timeout** | 300 seconds | 300 seconds |
 
 ### Outbound API Headers
 All HTTP requests sent to OpenRouter or OpenAI-compatible endpoints include identification headers:
@@ -220,6 +219,11 @@ The **Configuration** tab manages the candidate's professional baseline:
   3. Deduplicates entries case-insensitively while preserving original casing.
   4. Sorts entries alphabetically for consistent evaluation.
 
+> [!TIP]
+> **Personalizing for Your Job Search**
+> The files provided in `candidate_data/` and `templates/` serve as a coherent, realistic synthetic example centered on an imaginary candidate profile (`Candidate`). When personalizing `jobStarr` for your own job search, we officially recommend customizing the supplied example data—including `candidate_data/my_resume.md`, `candidate_data/my_testimonials.md`, and the prompt files—with the assistance of an AI chatbot (such as ChatGPT, Claude, or Gemini) and/or an AI coding assistant.
+
+
 ---
 
 ## 6. Configuration Reference
@@ -227,8 +231,8 @@ The **Configuration** tab manages the candidate's professional baseline:
 All settings are persisted in `jobStarr.yaml` located in the application working directory. The file is written with strict user-only POSIX permissions (`0600` / `-rw-------`):
 
 ```yaml
-# jobStarr Configuration File (v0.2.0)
-version: "0.2.0"
+# jobStarr Configuration File (v0.2.1)
+version: "0.2.1"
 
 api:
   primary:
@@ -242,7 +246,7 @@ api:
     model: "perplexity/sonar"
     api_key: "sk-or-v1-..."
     reasoning_effort: ""         # Optional
-    timeout_seconds: 120
+    timeout_seconds: 300
 
 prompts:
   system: "..."                  # defaults to sysprompts/veritas_sys_prompt.md
@@ -263,14 +267,14 @@ materials:
 
 *Note: the `prompts`, `candidate`, and `materials` sections are omitted entirely on first launch and repopulated from the bundled defaults (`sysprompts/`, `prompts/`, `candidate_data/`, `templates/`) via the Qt resource bundle in `resources/jobstarr.qrc`.*
 
-*Note: `jobStarr` automatically migrates existing v0.1.0 configurations to v0.2.0 upon launch.*
+*Note: `jobStarr` automatically migrates existing v0.1.0 and v0.2.0 configurations to v0.2.1 upon launch.*
 
 ---
 
 ## 7. Repository Structure
 
 ```text
-jobStarr-cpp-four/                      # This repository (C++20 / Qt 6 application)
+jobStarr-cpp/                           # This repository (C++20 / Qt 6 application)
 ├── CMakeLists.txt                      # Build configuration & test targets
 ├── LICENSE                             # MIT
 ├── .gitignore                          # Excludes output/*, jobStarr.yaml, CMake scaffolding
@@ -294,13 +298,8 @@ jobStarr-cpp-four/                      # This repository (C++20 / Qt 6 applicat
 │   └── Candidate_Cover000-TEMPLATE.odt
 ├── resources/
 │   └── jobstarr.qrc                    # Qt compiled resource bundle
-├── third_party/                        # Vendored dependencies (see third_party/README.md)
-│   ├── jobspy/                         # JobSpy scraping engine, bundled (MIT)
-│   ├── LICENSE.JobSpy
-│   └── README.md                       # Provenance, version & update procedure
-├── tools/
-│   ├── jobspy_bridge.py                # Local Python JobSpy bridge
-│   └── requirements-jobspy.txt         # JobSpy runtime dependencies (PyPI)
+├── third_party_licenses/               # Preserved licenses for derived components
+│   └── LICENSE.JobSpy                  # Cullen Watson MIT license for scraping architecture
 ├── src/                                # C++ implementation
 │   ├── main.cpp                        # Application bootstrap
 │   ├── MainWindow.*                    # Primary tabbed interface
@@ -311,7 +310,6 @@ jobStarr-cpp-four/                      # This repository (C++20 / Qt 6 applicat
 │   ├── JobJudgeResult.*                # Evaluation parser
 │   ├── PromptRenderer.*                # Template substitution engine
 │   ├── UrlValidator.*                  # Host regex validation
-│   ├── JobSpyClient.*                  # Async scraper process wrapper
 │   ├── LlmClient.*                     # Async HTTP LLM client
 │   ├── CandidateProfile.*              # Profile & skill deduplicator
 │   ├── CompanyAddressLookup.*          # Search LLM integration
@@ -320,38 +318,26 @@ jobStarr-cpp-four/                      # This repository (C++20 / Qt 6 applicat
 │   ├── FilenameSanitizer.*             # Safe filesystem path generator
 │   ├── OdtTemplateRenderer.*           # libzip ODT XML rendering engine
 │   ├── PdfConverter.*                  # Headless LibreOffice PDF converter
-│   └── OutputManager.*                 # Atomic staging & publisher
-├── tests/                              # 13 automated QTest test suites
+│   ├── OutputManager.*                 # Atomic staging & publisher
+│   └── scraping/                       # Native C++ LinkedIn & Indeed scrapers
+│       ├── ScrapeError.h               # Structured scrape error model
+│       ├── JobScraper.h                # Abstract async scraper interface
+│       ├── LinkedInScraper.*           # Native LinkedIn parser (libxml2 XPath)
+│       ├── IndeedScraper.*             # Native Indeed parser (GraphQL + JSON)
+│       ├── JobParsingUtilities.*       # Shared date, salary & markdown utilities
+│       └── ScraperFactory.*            # Factory routing URLs to native scrapers
+├── tests/                              # 16 automated QTest test suites
 ├── output/                             # Published application packages (generated)
 └── build/                              # Build tree (partially tracked — see below)
 ```
 
-### Scraper dependency: JobSpy is bundled
+### Native Scraping Architecture: C++ Indeed & LinkedIn Parsers
 
-`jobStarr` scrapes LinkedIn and Indeed through
-[**JobSpy**](https://github.com/speedyapply/JobSpy/) (MIT, © 2023 Cullen Watson).
-**JobSpy is vendored into this repository** at `third_party/jobspy/`, so no
-sibling checkout is required: a fresh clone builds and runs standalone.
+`jobStarr` scrapes LinkedIn and Indeed postings natively in C++ using Qt Network (`QNetworkAccessManager`), `libxml2` XPath navigation for LinkedIn, and direct GraphQL querying for Indeed.
 
-The build copies `jobspy/` next to the compiled executable, so the deployed
-application is self-contained too. `tools/jobspy_bridge.py` resolves the package
-in this order (first match wins):
-
-| Order | Location | Purpose |
-| :--- | :--- | :--- |
-| 1 | `$JOBSTARR_JOBSPY_PATH` | Explicit override |
-| 2 | next to `jobspy_bridge.py` | Bundled copy (deployed app) |
-| 3 | `../third_party` | Bundled copy (source tree) |
-| 4 | any ancestor's `third_party/` | Bundled copy (out-of-tree build dirs) |
-| 5 | `jobStarr-res/JobSpy` sibling layouts | Deprecated; only for existing checkouts |
-
-JobSpy's own PyPI dependencies (`requests`, `beautifulsoup4`, `pandas`,
-`pydantic`, `curl_cffi`, `markdownify`) are **not** vendored — install them from
-`tools/requirements-jobspy.txt`. See [third_party/README.md](third_party/README.md)
-for version, provenance and the update procedure.
-
-If the package cannot be located, `jobspy_bridge.py` exits non-zero with a
-diagnostic on stderr; see [Troubleshooting](#10-troubleshooting--faqs).
+- **Zero Python Runtime**: No Python interpreter, virtual environment, or external `pip` dependencies (`requests`, `beautifulsoup4`, `pandas`, `curl_cffi`, `markdownify`) are required at build or runtime.
+- **Asynchronous & Non-Blocking**: Scraper requests run directly on Qt's event loop with active timeout handling and clean cancellation semantics without freezing the user interface.
+- **JobSpy Parity & Provenance**: Extraction heuristics, HTML parsing rules, and GraphQL queries are derived from and inspired by [**JobSpy**](https://github.com/speedyapply/JobSpy/) (MIT, © 2023 Cullen Watson). Full licensing obligations are preserved in `third_party_licenses/LICENSE.JobSpy`.
 
 ---
 
@@ -361,43 +347,21 @@ diagnostic on stderr; see [Troubleshooting](#10-troubleshooting--faqs).
 
 #### Arch Linux / Manjaro:
 ```bash
-sudo pacman -S base-devel cmake qt6-base yaml-cpp libzip libreoffice-fresh poppler python python-pip
+sudo pacman -S base-devel cmake qt6-base yaml-cpp libzip libxml2 libreoffice-fresh poppler
 ```
 
 #### Ubuntu 22.04+ / Debian 12+:
 ```bash
 sudo apt-get update
 sudo apt-get install -y build-essential cmake qt6-base-dev qt6-base-dev-tools \
-    libyaml-cpp-dev libzip-dev libreoffice poppler-utils python3 python3-pip
+    libyaml-cpp-dev libzip-dev libxml2-dev libreoffice poppler-utils
 ```
 
 #### Fedora 38+ / RHEL 9:
 ```bash
 sudo dnf install -y gcc-c++ cmake qt6-qtbase-devel yaml-cpp-devel libzip-devel \
-    libreoffice poppler-utils python3 python3-pip
+    libxml2-devel libreoffice poppler-utils
 ```
-
-### Python Environment
-
-The JobSpy source is bundled (see [Scraper dependency](#scraper-dependency-jobspy-is-bundled)),
-but its runtime dependencies must be installed. A virtual environment is
-recommended:
-
-```bash
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r tools/requirements-jobspy.txt
-```
-
-That installs `requests`, `beautifulsoup4`, `pandas`, `pydantic`, `curl_cffi` and
-`markdownify`. To install them system-wide instead:
-
-```bash
-pip install requests beautifulsoup4 pandas pydantic curl_cffi markdownify
-```
-
-> **Note:** `pandas` is required even though `jobStarr` only scrapes LinkedIn and
-> Indeed — `jobspy/__init__.py` imports it unconditionally.
 
 ### Compilation
 Build the application in Release mode:
@@ -407,23 +371,22 @@ cmake --build build -j$(nproc)
 ```
 
 ### Running the Test Suite
-`jobStarr` includes 13 automated unit and boundary test suites covering URL validation, prompt rendering, LLM parsing, ODT rendering, PDF conversion, address lookups, and transactional staging:
+`jobStarr` includes 16 automated unit and boundary test suites covering URL validation, prompt rendering, LLM parsing, native scraping, HTML/GraphQL extraction, ODT rendering, PDF conversion, address lookups, and transactional staging:
 ```bash
 ctest --test-dir build --output-on-failure
 ```
 *Expected test summary:*
 ```text
-100% tests passed out of 13
-Total Test time (real) = ~1.5s
+100% tests passed out of 16
+Total Test time (real) = ~2.0s
 ```
 
 #### Committed build artifacts
 
 `build/` is **partially tracked** so a release can be audited without a toolchain.
-Tracked: the `jobStarr` executable, `libjobstarr_core.a`, the 13 test binaries, and
-the deployed `jobspy_bridge.py` + `jobspy/` package. They were produced by a
-neutral-path build, so no username or private directory layout is embedded, and
-they contain no credentials.
+Tracked: the `jobStarr` executable, `libjobstarr_core.a`, and the 16 test binaries.
+They were produced by a neutral-path build, so no username or private directory
+layout is embedded, and they contain no credentials.
 
 Not tracked: CMake's generated scaffolding — `CMakeCache.txt`, `Makefile`,
 `CTestTestfile.cmake`, `cmake_install.cmake`, `CMakeFiles/`, `*_autogen/`, `.qt/`,
@@ -440,7 +403,7 @@ Consequences:
   ```bash
   ./build/test_config && ./build/test_odt_renderer   # etc.
   ```
-  All 13 are relocatable and resolve their templates through `ProjectPaths`.
+  All 16 are relocatable and resolve their templates through `ProjectPaths`.
 * Always rebuild after cloning to get a usable build directory:
   ```bash
   rm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
@@ -471,24 +434,8 @@ Published packages are stored directly in `jobStarr-cpp/output/` with sanitized,
 
 ## 10. Troubleshooting & FAQs
 
-### Q: "Grab" fails with a JobSpy import error, or `python3` cannot find `jobspy`.
-**A**: The JobSpy **source** is bundled in `third_party/jobspy/`, so this almost always
-means its Python dependencies are not installed in the interpreter `jobStarr`
-invokes. `jobStarr` launches `python3` from `$PATH`, so install them there:
-```bash
-python3 -c "import requests, bs4, pandas, pydantic, curl_cffi, markdownify" \
-  || pip install -r tools/requirements-jobspy.txt
-```
-Reproduce the exact invocation outside the GUI to see the full traceback:
-```bash
-python3 tools/jobspy_bridge.py --url "https://www.linkedin.com/jobs/view/4464921447"
-```
-Confirm the bundled package resolves:
-```bash
-python3 -c "import sys; sys.path.insert(0,'third_party'); import jobspy; print(jobspy.__file__)"
-```
-If you want to run against a different JobSpy build, set `JOBSTARR_JOBSPY_PATH` to
-the directory *containing* the `jobspy/` package.
+### Q: "Grab" fails or request times out.
+**A**: Ensure your Internet connection is active and that the URL is a public posting. LinkedIn and Indeed may apply rate limits or CAPTCHA challenges to IP addresses generating excessive automated traffic. If a request times out, check your network and retry after a brief pause.
 
 ### Q: LibreOffice conversion fails during package generation.
 **A**: Ensure `libreoffice` or `soffice` is installed and reachable in your system `$PATH`:
@@ -514,7 +461,7 @@ libreoffice --headless --convert-to pdf test.odt
 * **Zero Secret Logging**: Bearer tokens, API keys, Authorization headers, and full candidate resumes are never output to standard logs, terminal consoles, or status messages.
 * **Separation of LLM Traffic**: The Search LLM only receives prospective employer names and locations. Candidate credentials never touch search endpoints.
 * **POSIX File Permissions**: Configuration files containing API keys are written with strict `0600` permissions (`-rw-------`).
-* **Subprocess Security**: All external processes (`jobspy_bridge.py`, `libreoffice`) are executed using discrete `QStringList` argument vectors via `QProcess`, eliminating shell injection risks.
+* **Subprocess Security**: External process execution (`libreoffice`) is executed using discrete `QStringList` argument vectors via `QProcess`, eliminating shell injection risks. Web scraping occurs entirely natively in-process via Qt Network.
 
 ---
 
@@ -524,15 +471,16 @@ libreoffice --headless --convert-to pdf test.odt
 - **`jobStarr` (`jS`)**: Developed and maintained by the **`jobStarr Contributors`**.
 
 ### Scraping Engine Attribution
-- **Indeed & LinkedIn Extraction**: Powered by the open-source [**JobSpy**](https://github.com/speedyapply/JobSpy/) engine created by Cullen Watson and the [speedyapply](https://github.com/speedyapply) community:
+- **Native C++ Scrapers Derived from JobSpy**: Powered by architecture derived from and inspired by the open-source [**JobSpy**](https://github.com/speedyapply/JobSpy/) engine created by Zachary Hampton, Cullen Watson, and the [speedyapply](https://github.com/speedyapply) community:
   - Repository: [https://github.com/speedyapply/JobSpy/](https://github.com/speedyapply/JobSpy/)
   - License: MIT License (Copyright &copy; 2023 Cullen Watson)
   - We gratefully acknowledge their work in engineering and maintaining high-fidelity scraping infrastructure for LinkedIn and Indeed postings.
-  - **Bundled**: JobSpy `1.2.0` is vendored unmodified into [`third_party/jobspy/`](third_party/) so `jobStarr` runs without a separate checkout. Its licence is reproduced verbatim at [`third_party/LICENSE.JobSpy`](third_party/LICENSE.JobSpy); provenance and the update procedure are in [`third_party/README.md`](third_party/README.md).
+  - The JobSpy MIT license is preserved verbatim in [`third_party_licenses/LICENSE.JobSpy`](third_party_licenses/LICENSE.JobSpy).
 
 ### Third-Party Ecosystem
 - **Qt 6 Framework**: Cross-platform GUI and asynchronous networking by The Qt Company.
 - **LibreOffice**: Headless OpenDocument PDF generation engine by The Document Foundation.
+- **libxml2**: XML and HTML parsing and XPath query engine by Daniel Veillard and contributors.
 - **yaml-cpp**: YAML parsing by Jesse Beder.
 - **libzip**: Multi-platform zip archive manipulation by Dieter Baron and Thomas Klausner.
 

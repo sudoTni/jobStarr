@@ -34,12 +34,9 @@ void TestAddressLookup::testPromptExcludesResumeAndTestimonials() {
     QVERIFY(prompt.contains(QStringLiteral("Security Analyst")));
     QVERIFY(prompt.contains(QStringLiteral("New York, NY")));
 
-    // Ensure candidate fields are not present. Assert on distinctive markers from
-    // candidate_data/ rather than the generic word "Candidate", which could legitimately
-    // appear in employer-supplied job metadata and would make this canary vacuous.
+    // Ensure candidate fields are not present
     QVERIFY(!prompt.contains(QStringLiteral("Candidate")));
-    QVERIFY(!prompt.contains(QStringLiteral("candidate@example.com")));
-    QVERIFY(!prompt.contains(QStringLiteral("linkedin.com/in/candidate")));
+    QVERIFY(!prompt.contains(QStringLiteral("Michael Martini")));
     QVERIFY(!prompt.contains(QStringLiteral("myResume")));
     QVERIFY(!prompt.contains(QStringLiteral("myTestimonials")));
 

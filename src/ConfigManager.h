@@ -5,7 +5,7 @@
 namespace jobstarr {
 
 struct AppConfig {
-    QString version{"0.2.0"};
+    QString version{"0.2.1"};
 
     // Primary LLM
     QString apiEndpoint{"https://api.openai.com/v1/chat/completions"};

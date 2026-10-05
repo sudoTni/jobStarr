@@ -12,12 +12,11 @@ namespace jobstarr {
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      m_jobSpyClient(new JobSpyClient(this)),
       m_llmClient(new LlmClient(nullptr, this)),
       m_materialsController(new MakeMaterialsController(nullptr, nullptr, this)),
       m_progressTimer(new QTimer(this)) {
     setWindowTitle(QStringLiteral("jobStarr"));
-    setWindowIcon(QIcon(QStringLiteral(":/icon/jobStarr_icon.png")));
+    setWindowIcon(QIcon(QStringLiteral(":/icon/jobStarr.png")));
     resize(950, 850);
 
     setupUi();
@@ -31,11 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
         setAppState(AppState::Error, QStringLiteral("Configuration load error: %1").arg(configError));
     }
     m_configWidget->setConfig(m_config);
-
-    // JobSpy client signals
-    connect(m_jobSpyClient, &JobSpyClient::grabStarted, this, &MainWindow::onGrabStarted);
-    connect(m_jobSpyClient, &JobSpyClient::grabSuccess, this, &MainWindow::onGrabSuccess);
-    connect(m_jobSpyClient, &JobSpyClient::grabError, this, &MainWindow::onGrabError);
 
     // LLM client signals
     connect(m_llmClient, &LlmClient::judgeStarted, this, &MainWindow::onJudgeStarted);
@@ -298,7 +292,23 @@ void MainWindow::onGrabClicked() {
     clearJudgment();
     clearApplicationPackage();
 
-    m_jobSpyClient->grabJob(url);
+    if (m_currentScraper && m_currentScraper->isRunning()) {
+        m_currentScraper->cancel();
+    }
+
+    QString factoryErr;
+    m_currentScraper = ScraperFactory::createScraper(url, nullptr, this, &factoryErr);
+    if (!m_currentScraper) {
+        stopProgress();
+        setAppState(AppState::Error, QStringLiteral("Error: %1").arg(factoryErr));
+        return;
+    }
+
+    connect(m_currentScraper.get(), &JobScraper::started, this, &MainWindow::onGrabStarted);
+    connect(m_currentScraper.get(), &JobScraper::success, this, &MainWindow::onGrabSuccess);
+    connect(m_currentScraper.get(), &JobScraper::error, this, &MainWindow::onGrabError);
+
+    m_currentScraper->scrape(url);
 }
 
 void MainWindow::onGrabStarted() {

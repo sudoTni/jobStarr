@@ -11,7 +11,8 @@
 #include "ConfigManager.h"
 #include "JobRecord.h"
 #include "JobJudgeResult.h"
-#include "JobSpyClient.h"
+#include "scraping/JobScraper.h"
+#include "scraping/ScraperFactory.h"
 #include "LlmClient.h"
 #include "ConfigurationWidget.h"
 #include "MakeMaterialsController.h"
@@ -72,7 +73,7 @@ private:
     ConfigManager m_configManager;
 
     std::optional<JobRecord> m_currentJob;
-    JobSpyClient *m_jobSpyClient{nullptr};
+    std::unique_ptr<JobScraper> m_currentScraper;
     LlmClient *m_llmClient{nullptr};
     MakeMaterialsController *m_materialsController{nullptr};
 

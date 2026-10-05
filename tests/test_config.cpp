@@ -29,8 +29,9 @@ void TestConfig::testMissingYamlLoadsDefaults() {
     QString err;
     QVERIFY2(manager.load(config, &err), qPrintable(err));
 
-    QCOMPARE(config.version, QStringLiteral("0.2.0"));
+    QCOMPARE(config.version, QStringLiteral("0.2.1"));
     QCOMPARE(config.timeoutSeconds, 300);
+    QCOMPARE(config.searchTimeoutSeconds, 300);
     QVERIFY(!config.systemPrompt.isEmpty());
     QVERIFY(config.systemPrompt.contains(QStringLiteral("Veritas")));
 
@@ -61,7 +62,7 @@ void TestConfig::testSaveAndReloadRoundTrip() {
     ConfigManager manager(testPath);
 
     AppConfig original;
-    original.version = QStringLiteral("0.2.0");
+    original.version = QStringLiteral("0.2.1");
     original.apiEndpoint = QStringLiteral("https://api.myllm.com/v1/chat/completions");
     original.model = QStringLiteral("custom-llm-v1");
     original.apiKey = QStringLiteral("secret-token-12345");
@@ -72,7 +73,7 @@ void TestConfig::testSaveAndReloadRoundTrip() {
     original.searchModel = QStringLiteral("sonar");
     original.searchApiKey = QStringLiteral("search-secret");
     original.searchReasoningEffort = QStringLiteral("medium");
-    original.searchTimeoutSeconds = 450;
+    original.searchTimeoutSeconds = 480;
 
     original.systemPrompt = QStringLiteral("Custom system prompt.\nLine 2.\nLine 3.");
     original.jobJudgePrompt = QStringLiteral("Evaluate {targJD} against {myResume} please.\nMultiple lines here.");
@@ -106,6 +107,7 @@ void TestConfig::testSaveAndReloadRoundTrip() {
     QCOMPARE(loaded.searchModel, original.searchModel);
     QCOMPARE(loaded.searchApiKey, original.searchApiKey);
     QCOMPARE(loaded.searchReasoningEffort, original.searchReasoningEffort);
+    QCOMPARE(loaded.searchTimeoutSeconds, original.searchTimeoutSeconds);
 
     QCOMPARE(loaded.systemPrompt.trimmed(), original.systemPrompt.trimmed());
     QCOMPARE(loaded.jobJudgePrompt.trimmed(), original.jobJudgePrompt.trimmed());
@@ -131,7 +133,7 @@ void TestConfig::testMultilinePreservation() {
     AppConfig original;
     original.systemPrompt = QStringLiteral("Line 1\n\nLine 3 with Markdown *bold* and _italic_\n\n- bullet 1\n- bullet 2\n");
     original.jobJudgePrompt = QStringLiteral("### Heading\n\nData:\n{targJD}\n\nCandidate:\n{myResume}\n\nConclusion:\nFinal thoughts.");
-    original.myResume = QStringLiteral("Candidate\nAlbany, NY\n\n12+ years experience:\n* Splunk\n* Carbon Black\n");
+    original.myResume = QStringLiteral("Candidate\nAnytown, USA\n\n12+ years experience:\n* Splunk\n* Carbon Black\n");
 
     QString err;
     QVERIFY2(manager.save(original, &err), qPrintable(err));
@@ -215,6 +217,7 @@ void TestConfig::testConfigMigrationFromV010() {
     QVERIFY(loaded.searchApiKey.isEmpty());
     QVERIFY(loaded.reasoningEffort.isEmpty());
     QVERIFY(loaded.searchReasoningEffort.isEmpty());
+    QCOMPARE(loaded.searchTimeoutSeconds, 300);
 
     // 4. New candidate fields initialized from defaults
     QVERIFY(!loaded.professionalTitle.isEmpty());
@@ -232,11 +235,13 @@ void TestConfig::testConfigMigrationFromV010() {
 
     AppConfig reloaded;
     QVERIFY2(manager.load(reloaded, &err), qPrintable(err));
+    QCOMPARE(reloaded.version, loaded.version);
     QCOMPARE(reloaded.apiEndpoint, loaded.apiEndpoint);
     QCOMPARE(reloaded.model, loaded.model);
     QCOMPARE(reloaded.apiKey, loaded.apiKey);
     QCOMPARE(reloaded.myResume.trimmed(), loaded.myResume.trimmed());
     QCOMPARE(reloaded.professionalTitle, loaded.professionalTitle);
+    QCOMPARE(reloaded.searchTimeoutSeconds, 300);
 }
 
 QTEST_MAIN(TestConfig)

@@ -1,0 +1,60 @@
+{
+  "data": {
+    "jobData": {
+      "results": [
+        {
+          "job": {
+            "source": {
+              "name": "Indeed"
+            },
+            "key": "aabbccddeeff0011",
+            "title": "Junior Linux Administrator",
+            "datePublished": 1759400000000,
+            "dateOnIndeed": 1759400000000,
+            "description": {
+              "html": "<p>Entry-level Linux Administrator responsible for server maintenance and patching.</p>"
+            },
+            "location": {
+              "countryName": "United States",
+              "countryCode": "US",
+              "admin1Code": "NY",
+              "city": "Albany",
+              "postalCode": "12207",
+              "streetAddress": "",
+              "formatted": {
+                "short": "Albany, NY",
+                "long": "Albany, NY"
+              }
+            },
+            "compensation": {
+              "baseSalary": null,
+              "currencyCode": "USD",
+              "estimated": {
+                "currencyCode": "USD",
+                "baseSalary": {
+                  "unitOfWork": "HOUR",
+                  "range": {
+                    "min": 35.5,
+                    "max": 48.0
+                  }
+                }
+              }
+            },
+            "attributes": [
+              {
+                "key": "75GKK",
+                "label": "Part-time"
+              }
+            ],
+            "employer": {
+              "relativeCompanyPageUrl": "/cmp/tech-services",
+              "name": "Tech Services LLC",
+              "dossier": null
+            },
+            "recruit": null
+          }
+        }
+      ]
+    }
+  }
+}
