@@ -13,9 +13,13 @@
 
 <p align="center">
   <img src="icon/jobStarr_logo.png" alt="jobStarr Logo" width="550"/><br>
-  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-v0.2.1.zip">Linux</a>
+  Binaries: <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Linux-bin-v0.2.1.zip">Linux</a>
   |
-  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-v0.2.1.zip">Windows</a>
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-bin-v0.2.1.zip">Windows</a>
+  ★
+  Source: <a href="https://github.com/sudoTni/jobStarr/tree/main">Linux</a>
+  |
+  <a href="https://github.com/sudoTni/jobStarr/releases/download/v0.2.1/jobStarr-Windows-src-v0.2.1.zip">Windows</a>
 </p>
 
 ---
